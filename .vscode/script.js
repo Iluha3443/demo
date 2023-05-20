@@ -1,35 +1,15 @@
-const user = {
-  firstName: "John",
-  lastName: "Doe",
-  age: 32,
-  email: "johndoe@example.com",
-  address: {
-    city: "New York",
-    state: "NY",
-    country: "USA"
+const parentEl = document.getElementById('36');
+const alloEl = document.getElementById('1');
+const comfyEl = document.getElementById('2');
+const eldosEl = document.getElementById('3');
+
+parentEl.addEventListener('click', textNewElements )
+
+function textNewElements(event) {
+  console.log(event.target)
+  const newproblem = event.target;
+  newproblem.remove()
   }
-};
 
 
-function getUserInfo (user)  {
-
- const { firstName, lastName, address : { city, country } } = user;
-
-
-return {firstName, lastName, city, country }
-}
-
-const userInfo = getUserInfo(user);
-
-console.log(userInfo)
-
-
-
-
-
-
-
-// console.log(getFullName(user1)) // 25
-
-// console.log(getFullName(user2))// ; // null
 
