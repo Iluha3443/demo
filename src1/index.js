@@ -1,28 +1,27 @@
 
 const openBtn = document.querySelector('.open');
 const modal = document.querySelector('.modal');
-const closeBtn = document.querySelector('.close-btn');
 
 openBtn.addEventListener('click', openModal)
 
-closeBtn.addEventListener('click', () => {
-  modal.style.display = 'none';
-});
-
 function openModal() {
     modal.style.display = 'block';
-    modal.innerHTML = getAuthForm();
+  modal.innerHTML = getAuthForm();
+  document.getElementById('auth-form').addEventListener('submit', authFormHandler, {once: true})
 }
 
-
+function authFormHandler(e) {
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  authWithEmailAmdPassword(email,password)
+  
+}
 
 function getAuthForm() {
     return  `
-<div class="modal-window">
-  <div class="modal-content">
-    <h2>Authentication
-</h2>
     <form class="form" id="auth-form">
+     <h2>Authentication</h2>
       <div class="form-group">
         <input type="email" id="email" required>
         <label for="email">Email</label>
@@ -33,9 +32,21 @@ function getAuthForm() {
       </div>
       <button type="submit" class="submit-btn">Войти</button>
     </form>
-    <button class="close-btn">Закрыть</button>
-  </div>
-</div>
+    <button class="close-button">Закрыть</button>
   `
-  
+}
+
+function authWithEmailAmdPassword(email, password) {
+  const API_KEY = "AIzaSyDxNwmZzHZ-vdGILRkmWY0qu02lzG2Ospc";
+  return fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`, {
+    method: 'POST',
+    body: JSON.stringify({
+      email, password,
+      returnSecureToken: true
+    }),
+    headers: {
+      "ContentType": "application/json"
+    }
+  }).then(res => res.json())
+    .then(data => console.log(data))
 }
