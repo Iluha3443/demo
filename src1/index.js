@@ -1,3 +1,4 @@
+import { getStorage } from "firebase/storage";
 
 const openBtn = document.querySelector('.open');
 const modal = document.querySelector('.modal');
@@ -7,7 +8,7 @@ openBtn.addEventListener('click', openModal)
 function openModal() {
     modal.style.display = 'block';
   modal.innerHTML = getAuthForm();
-  document.getElementById('auth-form').addEventListener('submit', authFormHandler, {once: true})
+  document.getElementById('auth-form').addEventListener('submit', authFormHandler, { once: true });
 }
 
 function authFormHandler(e) {
@@ -45,8 +46,14 @@ function authWithEmailAmdPassword(email, password) {
       returnSecureToken: true
     }),
     headers: {
-      "ContentType": "application/json"
+      "Content-Type": "application/json"
     }
   }).then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => {
+      const books = [Mango, Kivi];
+      const storage = `gs://books-project-c0eb5.appspot.com`;
+
+    }
+    )
+  
 }
